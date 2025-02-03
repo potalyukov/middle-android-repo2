@@ -1,3 +1,4 @@
+import android.util.Range
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -74,8 +75,8 @@ class ChatViewModelTest {
 
         val actualMessages = viewModel.messages.value
 
-        (0..<n).map {
-            assertEquals(actualMessages[it], sentMessages[it])
+        (0..<n).forEach { i ->
+            assertEquals(actualMessages[i], sentMessages[i])
         }
     }
 }

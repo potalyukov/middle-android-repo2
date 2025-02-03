@@ -22,12 +22,13 @@ class ChatRepository(
             .onEach { retryAttempt = 0 }
             .retry { cause ->
                 val retryDelay = firstRetryMillis * retryDelayFactor.pow(retryAttempt.toDouble())
+
                 delay(retryDelay.toLong())
                 retryAttempt++
-                cause is Exception && retryAttempt < retries
-            }.catch {
-                retryAttempt = 0
-                Log.e("mainLog", it.message.toString())
+                val retry = cause is Exception && retryAttempt < retries
+
+                Log.d("mainLog", "attempt: $retryAttempt, delay: $retryDelay, retry: $retry")
+                retry
             }
     }
 }

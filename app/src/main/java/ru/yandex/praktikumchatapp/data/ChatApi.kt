@@ -1,5 +1,6 @@
 package ru.yandex.praktikumchatapp.data
 
+import android.util.Log
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -91,9 +92,10 @@ class ChatApi {
             delay(Random.nextLong(MAXIMUM_RESPONSE_DELAY))
 
             if (Random.nextBoolean()) {
+                Log.d("mainLog","api: simulating exception")
                 throw Exception("Ошибка запроса", Throwable("Something went wrong"))
             }
-
+            Log.d("mainLog","api: emitting value")
             emit(responses.random())
         }
     }
